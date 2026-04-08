@@ -1,0 +1,23 @@
+artifact_path: file:C:/Users/Vaishnavi/Desktop/churn-mlops-pipeline/churn-mlops-pipeline/mlruns/1/models/m-93f4f54459424b4f82a65057c203fe0e/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.7
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.10.1
+model_id: m-93f4f54459424b4f82a65057c203fe0e
+model_size_bytes: 631997
+model_uuid: m-93f4f54459424b4f82a65057c203fe0e
+prompts: null
+run_id: 9db028ee637c486c9a3963ef0353ccc4
+utc_time_created: '2026-04-08 00:18:39.023985'

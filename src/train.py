@@ -87,6 +87,11 @@ if __name__ == "__main__":
         ),
     ]
 
+    # Save feature order for API
+    import json
+    with open("data/processed/feature_order.json", "w") as f:
+        json.dump(list(X_train.columns), f)
+
     # Train all models, track the best one
     best_auc, best_run_id, best_name = 0, None, None
     for name, model, params in experiments:

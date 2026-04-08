@@ -17,14 +17,13 @@ app = FastAPI(
     version="1.0.0"
 )
 
+import json
+
 MODEL_URI = "models:/churn-model/latest"
-FEATURE_ORDER = [
-    "gender", "SeniorCitizen", "Partner", "Dependents", "tenure",
-    "PhoneService", "MultipleLines", "InternetService", "OnlineSecurity",
-    "OnlineBackup", "DeviceProtection", "TechSupport", "StreamingTV",
-    "StreamingMovies", "Contract", "PaperlessBilling", "PaymentMethod",
-    "MonthlyCharges", "TotalCharges"
-]
+
+# Load feature order saved during training
+with open("data/processed/feature_order.json") as f:
+    FEATURE_ORDER = json.load(f)
 
 try:
     tracking_uri = os.environ.get("MLFLOW_TRACKING_URI", "sqlite:///mlflow.db")
