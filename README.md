@@ -6,47 +6,8 @@
 
 ## 🏗️ Architecture
 
-```
-Raw Data
-   │
-   ▼
-┌─────────────────┐
-│ Data Processing  │  src/data_processing.py
-│ - Clean & encode │
-│ - Train/test split│
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ Model Training   │  src/train.py
-│ - 5 models       │
-│ - MLflow logging │──────────────► MLflow Model Registry
-│ - Best model reg │                (sqlite:///mlflow.db)
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  FastAPI Server  │  api/main.py
-│  POST /predict   │
-│  POST /batch_    │
-│  predict         │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐        ┌──────────────────┐
-│    Docker        │        │  GitHub Actions   │
-│  Containerized   │        │  CI/CD Pipeline   │
-│  API + MLflow    │        │  - Test → Build   │
-└────────┬────────┘        └──────────────────┘
-         │
-         ▼
-┌─────────────────┐
-│   Monitoring     │  monitoring/
-│ - Evidently AI   │
-│ - Streamlit      │
-│   Dashboard      │
-└─────────────────┘
-```
+<img width="1110" height="1176" alt="image" src="https://github.com/user-attachments/assets/94deb145-35a9-428a-99df-df63dc0971b7" />
+
 
 ---
 
