@@ -1,4 +1,5 @@
 import os
+import json
 import mlflow.sklearn
 import pandas as pd
 import logging
@@ -17,8 +18,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-import json
-
 MODEL_URI = "models:/churn-model/latest"
 
 # Load feature order saved during training
@@ -36,7 +35,8 @@ except Exception as e:
 
 
 def make_prediction(customer: CustomerFeatures) -> PredictionResponse:
-    df = pd.DataFrame([customer.model_dump()])[FEATURE_ORDER]
+    data = customer.model_dump() if hasattr(customer, "model_dump") else customer.dict()
+    df = pd.DataFrame([data])[FEATURE_ORDER]
     prob = model.predict_proba(df)[0][1]
     prediction = prob >= 0.5
     risk = "High" if prob >= 0.7 else "Medium" if prob >= 0.4 else "Low"
