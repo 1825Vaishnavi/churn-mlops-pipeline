@@ -1,3 +1,4 @@
+import os
 import mlflow.sklearn
 import pandas as pd
 import logging
@@ -16,21 +17,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Load model once at startup
-MODEL_URI = "models:/churn-model/1"
-
-def _load_model():
-    mlflow.set_tracking_uri("sqlite:///mlflow.db")
-    return mlflow.sklearn.load_model(MODEL_URI)
-
-try:
-    model = _load_model()
-    logger.info("Model loaded successfully!")
-except Exception as e:
-    logger.error(f"Failed to load model: {e}")
-    model = None
-
-
+MODEL_URI = "models:/churn-model/latest"
 FEATURE_ORDER = [
     "gender", "SeniorCitizen", "Partner", "Dependents", "tenure",
     "PhoneService", "MultipleLines", "InternetService", "OnlineSecurity",
@@ -38,6 +25,16 @@ FEATURE_ORDER = [
     "StreamingMovies", "Contract", "PaperlessBilling", "PaymentMethod",
     "MonthlyCharges", "TotalCharges"
 ]
+
+try:
+    tracking_uri = os.environ.get("MLFLOW_TRACKING_URI", "sqlite:///mlflow.db")
+    mlflow.set_tracking_uri(tracking_uri)
+    model = mlflow.sklearn.load_model(MODEL_URI)
+    logger.info("Model loaded successfully!")
+except Exception as e:
+    logger.error(f"Failed to load model: {e}")
+    model = None
+
 
 def make_prediction(customer: CustomerFeatures) -> PredictionResponse:
     df = pd.DataFrame([customer.model_dump()])[FEATURE_ORDER]
