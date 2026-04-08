@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ./src/
 COPY api/ ./api/
 COPY data/processed/ ./data/processed/
-COPY mlflow.db .
+
 
 # Expose port
 EXPOSE 8000
