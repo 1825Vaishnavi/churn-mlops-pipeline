@@ -253,7 +253,7 @@ mlflow run . -e train
 
 ## 👩‍💻 Author
 
-**Vaishnavi Mallikarjun**
+**Vaishnavi Mallikarjun Gajarla**
 Master's in Data Analytics Engineering - Northeastern University
 
 [GitHub](https://github.com/1825Vaishnavi) | [LinkedIn](https://linkedin.com/in/vaishnavi)
